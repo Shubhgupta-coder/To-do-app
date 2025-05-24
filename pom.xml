@@ -14,6 +14,18 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
-  <dependencies> 
-   <dependency> <groupId>org.junit.jupiter</groupId> <artifactId>junit-jupiter</artifactId> <version>5.10.0</version> <scope>test</scope> </dependency> </dependencies>
-</project>
+  <dependencies> <!-- JUnit 5 --> <dependency> <groupId>org.junit.jupiter</groupId> <artifactId>junit-jupiter</artifactId> <version>5.10.0</version> <scope>test</scope> </dependency> </dependencies> 
+  <build>
+   <plugins> 
+   <!-- Surefire plugin to run tests --> 
+   <plugin> 
+   <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-surefire-plugin</artifactId> 
+    <version>3.1.2</version> 
+    </plugin>
+    
+    <plugin> <groupId>org.jacoco</groupId> <artifactId>jacoco-maven-plugin</artifactId> <version>0.8.10</version> <executions> <execution> <id>prepare-agent</id> <goals> <goal>prepare-agent</goal> </goals> </execution> <execution> <id>report</id> <phase>verify</phase> <goals> <goal>report</goal> </goals> </execution> </executions> </plugin>
+    <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-assembly-plugin</artifactId> <version>3.6.0</version> <configuration> <archive> <manifest> <mainClass>com.cg.todo_app.todo_app.controller.TodoController</mainClass> </manifest> </archive> <descriptorRefs> <descriptorRef>jar-with-dependencies</descriptorRef> </descriptorRefs> </configuration> <executions> <execution> <id>make-assembly</id> <phase>package</phase> <goals> <goal>single</goal> </goals> </execution> </executions> </plugin>
+     </plugins> 
+     </build> 
+     </project>

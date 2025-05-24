@@ -16,11 +16,16 @@ public class TodoController {
 
 
 public final TodoService todoService;
-private final Scanner scanner;
+private final Scanner scanner; 
 
 public TodoController() {
     this.todoService = new TodoServiceImpl(new InMemoryTodoRepository());
     this.scanner = new Scanner(System.in);
+}
+
+public TodoController(Scanner scanner) {
+this.todoService = new TodoServiceImpl(new InMemoryTodoRepository());
+this.scanner = scanner;
 }
 
 public void run() {
@@ -161,8 +166,8 @@ private void searchTodos() {
     } else {
         results.forEach(System.out::println);
     }
-}
-
+} 
+ 
 private void filterMenu() {
     System.out.println("Filter by:");
     System.out.println("1. Priority");
@@ -196,7 +201,7 @@ private void filterMenu() {
     }
 }
 
-private void sortMenu() {
+ private void sortMenu() {
     System.out.println("Sort by:");
     System.out.println("1. Priority");
     System.out.println("2. Due Date");
@@ -243,16 +248,10 @@ private Priority readPriorityOptional() {
 
 // Entry point
 public static void main(String[] args) throws ReflectiveOperationException {
-    TodoController controller = new TodoController();
-
-    // Load todos from file
-    List<Todo> loaded = FileHandler.loadTodos();
-    controller.todoService.loadExistingTodos(loaded);
-
-    // Run app
-    controller.run();
-
-    // Save todos to file
-    FileHandler.saveTodos(controller.todoService.getAllTodos());
+TodoController controller = new TodoController();
+List<Todo> loaded = FileHandler.loadTodos();
+controller.todoService.loadExistingTodos(loaded);
+controller.run();
+FileHandler.saveTodos(controller.todoService.getAllTodos());
 }
 }
